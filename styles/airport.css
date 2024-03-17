@@ -1,0 +1,45 @@
+
+.colorMain { color: #FFE5B4; }
+.bgColor0 { background-color: #FFE5B4; }
+.bgColor1 { background-color: #B4FFE5; }
+.bgColor2 { background-color: #78D9B7; }
+.bgColor3 { background-color: #DAFFF2; }
+.bgColor4 { background-color: #E5B4FF; }
+.bgColor5 { background-color: #B778D9; }
+.bgColor6 { background-color: #F2DAFF; }
+.fontColor0 { color: #FFE5B4; }
+.fontColor1 { color: #B4FFE5; }
+.fontColor2 { color: #78D9B7; }
+.fontColor3 { color: #DAFFF2; }
+.fontColor4 { color: #E5B4FF; }
+.fontColor5 { color: #B778D9; }
+.fontColor6 { color: #F2DAFF; }
+
+@font-face {
+	font-family: 'MontserratRegular';
+	src: url('../fonts/MontserratRegular/MontserratRegular.eot');
+	src: local('MontserratRegular'), url('../fonts/MontserratRegular/MontserratRegular.woff') format('woff'), url('../fonts/MontserratRegular/MontserratRegular.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_6898">Text with this font applied</p> */
+.fontsforweb_fontid_6898 {
+	font-family: 'MontserratRegular' !important;
+}
+/* Set default font to be MontserratRegular.*/
+.official{font-family:'MontserratRegular';}
+
+/* Define font sizes for different elements */
+#title {
+    font-size: 18px;
+}
+
+#controls {
+    font-size: 18px;
+}
+
+#buttons {
+    font-size: 18px;
+}
+
+#credits {
+    font-size: 8px;
+}

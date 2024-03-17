@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'MontserratRegular';
+	src: local('MontserratRegular'), url('./MontserratRegular.woff') format('woff');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_8356">Text with this font applied</p> */
+.fontsforweb_fontid_8356 {
+	font-family: 'MontserratRegular' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */
