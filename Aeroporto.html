@@ -11,8 +11,6 @@
 	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-
 		<!-- d3 is for data visualization -->
 		<script type="text/javascript" src="lib/d3.min.js"></script>
 		
@@ -33,60 +31,108 @@
 	</div>
 
 	<div id="buttons" style="position:absolute; bottom:1%; left:60%">
-        <button onclick="toggleSimStep()">Start / Pause</button>
+        <button onclick="toggleSimStep()" id="startPauseBtn" disabled>Start / Pause</button>
     </div>
-	
-	<div id="shops" style="position:absolute;bottom:75vh;left:47vw">Number of Shops to Open:
-		<input id="shopSlider" type="range" min="1" value="1" max="10" step="1" onchange="updateShops();" />
-		<p> <span id="shopValue" style="position: absolute;bottom:-20%;left:80%;">1</span></p>
-		<button id="shopConfirmBtn" onclick="confirmOpen()">Confirm</button>
-		<!-- Hidden slider for food shops -->
-		<div id="foodShops" style="display: none; position:absolute;top:10vh;left:0vw">How many food shops to open?
-			<input id="foodShopSlider" type="range" min="1" value="1" max="1" step="1" onchange="updateFoodShops();" />
-			<p> <span id="foodShopValue"style="position: absolute;bottom:-20%;left:80%;">1</span></p>
-			<button id="foodShopConfirmBtn" onclick="confirmFoodShops()">Confirm Food Shops</button>
-		</div>
-	</div>
 
-	<script>
-		function updateShops(){
-			var slider = document.getElementById("shopSlider");
-			var output = document.getElementById("shopValue");
-			output.innerHTML = slider.value;
-    	}
-		function confirmOpen() {
-			var shops = document.getElementById("shopValue").innerHTML;
-			var confirmation = confirm("Open " + shops + " shops?");
-				if (confirmation) {
-					// Show the food shop slider
-					var foodShops = document.getElementById("foodShops");
-					foodShops.style.display = "block";
-					// Disable the shop slider and confirm button
-					document.getElementById("shopSlider").disabled = true;
-					document.getElementById("shopConfirmBtn").disabled = true;
-					// Set max value for food shop slider
-					var shopValue = parseInt(document.getElementById("shopValue").innerHTML);
-					var foodShopSlider = document.getElementById("foodShopSlider");
-					foodShopSlider.max = shopValue;
-					foodShopSlider.value = 1; // Reset food shop slider value
-					updateFoodShops(); // Update the display value of food shop slider
-				}
-    	}
-		function updateFoodShops() {
-			var foodSlider = document.getElementById("foodShopSlider");
-			var foodOutput = document.getElementById("foodShopValue");
-			foodOutput.innerHTML = foodSlider.value;
-    	}
-		function confirmFoodShops() {
-			document.getElementById("foodShopSlider").disabled = true;
-			document.getElementById("foodShopConfirmBtn").disabled = true;
-			var foodShopsValue = parseInt(document.getElementById("foodShopValue").innerHTML);
-			var totalShops = parseInt(document.getElementById("shopValue").innerHTML);
-			var retailShopsValue = totalShops - foodShopsValue;
-			var message = foodShopsValue + " food shops confirmed!\n" + retailShopsValue + " retail shops confirmed!";
-			alert(message);
-    	}
-	</script>
+<style>
+    .container {
+        position: absolute;
+        left: 47vw;
+        top: 2vh;
+    }
+    .slider-label {
+        margin-top: 6vh;
+    }
+    span {
+        display: block;
+    }
+</style>
+
+<div id="shops" class="container">
+    <div class="slider-label">Number of Shops to Open:
+        <input id="shopSlider" type="range" min="1" value="5" max="10" step="1" onchange="updateValue('shopSlider', 'shopValue');" />
+        <span id="shopValue">5</span>
+    </div>
+    <div class="slider-label">Arrival Probability:
+        <input id="arrivalProbSlider" type="range" min="0.1" max="1" step="0.1" value="0.5" onchange="updateValue('arrivalProbSlider', 'arrivalProbValue');" />
+        <span id="arrivalProbValue">0.5</span>
+    </div>
+    <div class="slider-label">Clearance Efficiency:
+        <input id="clearanceEffSlider" type="range" min="0.1" max="1" step="0.1" value="0.5" onchange="updateValue('clearanceEffSlider', 'clearanceEffValue');" />
+        <span id="clearanceEffValue">0.5</span>
+    </div>
+    <div class="slider-label">Cost of Operation ($):
+        <input id="costOpSlider" type="range" min="1" max="10" step="1" value="5" onchange="updateValue('costOpSlider', 'costOpValue');" />
+        <span id="costOpValue">5</span>
+    </div>
+    <div class="slider-label">Profit of Food ($):
+        <input id="profitFoodSlider" type="range" min="1" max="10" step="1" value="5" onchange="updateValue('profitFoodSlider', 'profitFoodValue');" />
+        <span id="profitFoodValue">5</span>
+    </div>
+    <div class="slider-label">Profit of Retail ($):
+        <input id="profitRetailSlider" type="range" min="1" max="10" step="1" value="5" onchange="updateValue('profitRetailSlider', 'profitRetailValue');" />
+        <span id="profitRetailValue">5</span>
+    </div>
+    <button id="shopConfirmBtn" style="margin-top: 20px;" onclick="confirmOpen()">Confirm</button>
+
+    <!-- Hidden slider for food shops -->
+    <div id="foodShops" style="display: none; margin-top: 20px;">
+        How many food shops to open?
+        <input id="foodShopSlider" type="range" min="1" value="1" max="1" step="1" onchange="updateValue('foodShopSlider', 'foodShopValue');" />
+        <span id="foodShopValue">1</span>
+        <button id="foodShopConfirmBtn" onclick="confirmFoodShops()">Confirm Food Shops</button>
+    </div>
+</div>
+
+<script>
+	function updateValue(sliderId, valueId) {
+		var slider = document.getElementById(sliderId);
+		var output = document.getElementById(valueId);
+		output.innerHTML = slider.value;
+	}
+	function confirmOpen() {
+		var shops = document.getElementById("shopValue").innerHTML;
+		var confirmation = confirm("Open " + shops + " shops?");
+		if (confirmation) {
+			document.getElementById("foodShops").style.display = "block";
+			document.getElementById("shopSlider").disabled = true;
+			document.getElementById("shopConfirmBtn").disabled = true;
+			document.getElementById("arrivalProbSlider").disabled = true;
+			document.getElementById("clearanceEffSlider").disabled = true;
+			document.getElementById("costOpSlider").disabled = true;
+			document.getElementById("profitFoodSlider").disabled = true;
+			document.getElementById("profitRetailSlider").disabled = true;
+			var shopValue = parseInt(document.getElementById("shopValue").innerHTML);
+			var foodShopSlider = document.getElementById("foodShopSlider");
+			foodShopSlider.max = shopValue;
+			foodShopSlider.value = 1;
+			updateValue('foodShopSlider', 'foodShopValue');
+		}
+	}
+	function confirmFoodShops() {
+		document.getElementById("foodShopSlider").disabled = true;
+    	document.getElementById("foodShopConfirmBtn").disabled = true;
+		var foodShopsValue = parseInt(document.getElementById("foodShopValue").innerHTML);
+		var totalShops = parseInt(document.getElementById("shopValue").innerHTML);
+		var retailShopsValue = totalShops - foodShopsValue;
+		
+		// Retrieving values from the sliders for final confirmation message
+		var arrivalProb = parseFloat(document.getElementById("arrivalProbValue").innerHTML);
+		var clearanceEff = parseFloat(document.getElementById("clearanceEffValue").innerHTML);
+		var costOfOperation = parseInt(document.getElementById("costOpValue").innerHTML);
+		var profitOfFood = parseInt(document.getElementById("profitFoodValue").innerHTML);
+		var profitOfRetail = parseInt(document.getElementById("profitRetailValue").innerHTML);
+		var message = foodShopsValue + " food shops confirmed!\n" 
+					+ retailShopsValue + " retail shops confirmed!\n"
+					+ "Arrival Probability: " + arrivalProb + "\n"
+					+ "Clearance Efficiency: " + clearanceEff + "\n"
+					+ "Cost of Operation: $" + costOfOperation + "\n"
+					+ "Profit of Food: $" + profitOfFood + "\n"
+					+ "Profit of Retail: $" + profitOfRetail;
+		alert(message);
+		document.getElementById("startPauseBtn").disabled = false;
+}
+</script>
 
 	<a id="credits" href="https://icons8.com/icons" style="position:absolute;bottom:0;right:0">Icons by icons8.com</a>
 	
