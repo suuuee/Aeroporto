@@ -39,9 +39,15 @@
         position: absolute;
         left: 47vw;
         top: 2vh;
+		width: 21vw;
+		height: 90vh;
+		background-color: #f0f0f0;
+		padding: 10px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		border-radius: 15px;
     }
     .slider-label {
-        margin-top: 6vh;
+        margin-top: 5vh;
     }
     span {
         display: block;
@@ -49,7 +55,7 @@
 </style>
 
 <div id="shops" class="container">
-    <div class="slider-label">Number of Shops to Open:
+    <div class="slider-label">Number of Shops:
         <input id="shopSlider" type="range" min="1" value="5" max="10" step="1" onchange="updateValue('shopSlider', 'shopValue');" />
         <span id="shopValue">5</span>
     </div>
@@ -131,7 +137,51 @@
 					+ "Profit of Retail: $" + profitOfRetail;
 		alert(message);
 		document.getElementById("startPauseBtn").disabled = false;
+		updateStatistics();
 }
+</script>
+
+<style>
+    .containerrightBottom {
+        position: absolute;
+        right: 2vw;
+        bottom: 5vh;
+		width: 25vw;
+		height: 40vh;
+		background-color: #f0f0f0;
+		padding: 10px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		border-radius: 15px;
+    }
+    .slider-label {
+        margin-top: 5vh;
+    }
+    span {
+        display: block;
+    }
+</style>
+
+<div id="stats" class="containerrightBottom">
+    <div class="stat-item">Average Waiting Time (Minutes): <span id="averageWaitingTime">2.5</span></div>
+    <div class="stat-item">Total Revenue: $<span id="totalRevenue">1000</span></div>
+    <div class="stat-item">Total Cost: $<span id="totalCost">700</span></div>
+    <div class="stat-item">Total Profit: $<span id="totalProfit">300</span></div>
+</div>
+
+<script>
+    function updateStatistics() {
+        // Example new values
+        var newAverageWaitingTime = 3.2;
+        var newTotalRevenue = 1500;
+        var newTotalCost = 800;
+        var newTotalProfit = 700;
+
+        // Updating the display
+        document.getElementById('averageWaitingTime').innerHTML = newAverageWaitingTime;
+        document.getElementById('totalRevenue').innerHTML = newTotalRevenue;
+        document.getElementById('totalCost').innerHTML = newTotalCost;
+        document.getElementById('totalProfit').innerHTML = newTotalProfit;
+    }
 </script>
 
 	<a id="credits" href="https://icons8.com/icons" style="position:absolute;bottom:0;right:0">Icons by icons8.com</a>
