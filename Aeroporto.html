@@ -13,6 +13,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<!-- d3 is for data visualization -->
 		<script type="text/javascript" src="lib/d3.min.js"></script>
+		<!-- for creating graphs -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		
 		<!-- custom styles for this application -->
 		<link rel="stylesheet" href="styles/airport.css" media="screen"> <!-- custom styles for this application -->
@@ -142,6 +144,27 @@
 </script>
 
 <style>
+    .containerrightTop {
+        position: absolute;
+        right: 2vw;
+        top: 5vh;
+		width: 25vw;
+		height: 40vh;
+		background-color: #f0f0f0;
+		padding: 10px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		border-radius: 15px;
+    }
+    span {
+        display: block;
+    }
+</style>
+
+<div id="chartContainer" class="containerrightTop">
+	<canvas id="profitChart" width="450" height="320"></canvas>
+	</div>
+
+<style>
     .containerrightBottom {
         position: absolute;
         right: 2vw;
@@ -152,9 +175,6 @@
 		padding: 10px;
 		box-shadow: 0 0 10px rgba(0,0,0,0.5);
 		border-radius: 15px;
-    }
-    .slider-label {
-        margin-top: 5vh;
     }
     span {
         display: block;
