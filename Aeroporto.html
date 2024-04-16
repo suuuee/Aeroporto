@@ -36,6 +36,7 @@
         <button onclick="toggleSimStep()" id="startPauseBtn" disabled>Start / Pause</button>
     </div>
 
+
 <style>
     .container {
         position: absolute;
@@ -139,6 +140,7 @@
 					+ "Profit of Retail: $" + profitOfRetail;
 		alert(message);
 		document.getElementById("startPauseBtn").disabled = false;
+		document.getElementById("slider1").disabled = true;
 		updateParameters(arrivalProb, clearanceEff, costOfOperation, profitOfFood, profitOfRetail, foodShopsValue, retailShopsValue);
 }
 </script>
